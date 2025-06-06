@@ -1,6 +1,7 @@
 #ifndef __PRODUS_H__
 #define __PRODUS_H__
 
+#include "DataCalendaristica.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -12,12 +13,16 @@ class Produs {
   string denumire;
   int cantitate;
   double pret;
+  DataCalendaristica data_creare;
 
 public:
+  Produs();
+  Produs(const string &cod, const string &nume, int cant, double pr);
   string getCodDeBare() const;
   string getDenumire() const;
   int getCantitate() const;
   double getPret() const;
+  DataCalendaristica getDataCreare() const;
   void setCodDeBare(const string &);
   void setDenumire(const string &);
   void setCantitate(int);

@@ -340,7 +340,7 @@ void cumparare() {
               << dataCurenta.getAn() << endl;
 
   for (size_t i = 0; i < cos.size(); i++) {
-    foutComenzi << cos[i].cod_de_bare;
+    foutComenzi << cos[i].cod_de_bare << " " << cos[i].cantitate;
     if (i < cos.size() - 1) {
       foutComenzi << " ";
     }

@@ -1,6 +1,7 @@
 #include "shared/data/DataCalendaristica.h"
 #include "shared/data/Produs.h"
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -59,19 +60,32 @@ void vizualizareComenzi(const string &numeFisier) {
 
     istringstream ss(linie);
     string cod;
-    while (ss >> cod) {
+    int cantitate;
+    double totalPretComanda = 0.0;
+
+    while (ss >> cod >> cantitate) {
       bool gasit = false;
       for (const auto &p : stoc) {
         if (p.getCodDeBare() == cod) {
-          cout << "  - " << p << endl;
+          double pretTotal = p.getPret() * cantitate;
+          totalPretComanda += pretTotal;
+          cout << "  - Cod de bare: " << p.getCodDeBare()
+               << ", Denumire: " << p.getDenumire()
+               << ", Cantitate: " << cantitate
+               << ", Pret unitar: " << p.getPret() << ", Pret total: " << fixed
+               << setprecision(2) << pretTotal << endl;
           gasit = true;
           break;
         }
       }
       if (!gasit) {
-        cout << "  - Cod necunoscut: " << cod << " (nu exista in stoc)" << endl;
+        cout << "  - Cod necunoscut: " << cod << " (cantitate: " << cantitate
+             << ", nu exista in stoc)" << endl;
       }
     }
+
+    cout << "Total comanda: " << fixed << setprecision(2) << totalPretComanda
+         << " RON" << endl;
     cout << "--------------------------------------------" << endl;
   }
 

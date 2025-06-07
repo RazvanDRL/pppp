@@ -7,6 +7,7 @@
 #include <vector>
 using namespace std;
 
+// Functie care citeste stocul de produse dintr-un fisier
 vector<Produs> citireStoc(const string &numeFile) {
   vector<Produs> stoc;
   ifstream fin(numeFile);
@@ -32,6 +33,7 @@ vector<Produs> citireStoc(const string &numeFile) {
   return stoc;
 }
 
+// Functie care afiseaza comenzile din fisier cu detaliile produselor
 void vizualizareComenzi(const string &numeFisier) {
   ifstream fin(numeFisier);
   if (!fin) {
@@ -76,6 +78,7 @@ void vizualizareComenzi(const string &numeFisier) {
   fin.close();
 }
 
+// Functia principala care gestioneaza comenzile pentru stoc si comenzi
 int main(int argc, char *argv[]) {
   if (argc > 1) {
     string comanda = argv[1];

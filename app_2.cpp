@@ -10,11 +10,13 @@
 
 using namespace std;
 
+// Structura care reprezinta un produs din cosul de cumparaturi
 struct ProdusInCos {
   string cod_de_bare;
   int cantitate;
 };
 
+// Functie care citeste stocul de produse dintr-un fisier
 vector<Produs> citireStoc(const string &numeFile) {
   vector<Produs> stoc;
   ifstream fin(numeFile);
@@ -40,6 +42,7 @@ vector<Produs> citireStoc(const string &numeFile) {
   return stoc;
 }
 
+// Functie care citeste produsele din cosul de cumparaturi
 vector<ProdusInCos> citireCos(const string &numeFile) {
   vector<ProdusInCos> cos;
   ifstream fin(numeFile);
@@ -59,6 +62,7 @@ vector<ProdusInCos> citireCos(const string &numeFile) {
   return cos;
 }
 
+// Functie care scrie produsele in fisierul cosului de cumparaturi
 void scrieCos(const vector<ProdusInCos> &cos, const string &numeFile) {
   ofstream fout(numeFile);
   if (!fout) {
@@ -71,6 +75,8 @@ void scrieCos(const vector<ProdusInCos> &cos, const string &numeFile) {
   fout.close();
 }
 
+// Functie template care gaseste un element intr-un container folosind un
+// predicat
 template <typename T, typename Predicate>
 T gasesteElement(const vector<T> &container, Predicate pred) {
   for (const auto &element : container) {
@@ -82,6 +88,7 @@ T gasesteElement(const vector<T> &container, Predicate pred) {
   return elementGol;
 }
 
+// Functie care gaseste un produs in stoc dupa codul de bare
 Produs gasesteProdusInStoc(const string &cod_de_bare,
                            const vector<Produs> &stoc) {
   return gasesteElement<Produs>(stoc, [&cod_de_bare](const Produs &p) {
@@ -89,6 +96,7 @@ Produs gasesteProdusInStoc(const string &cod_de_bare,
   });
 }
 
+// Functie care afiseaza continutul cosului de cumparaturi
 void vizualizareCos() {
   vector<ProdusInCos> cos = citireCos("shared/files/cos_cumparaturi.txt");
   vector<Produs> stoc = citireStoc("shared/files/stoc.txt");
@@ -127,6 +135,7 @@ void vizualizareCos() {
        << endl;
 }
 
+// Functie care adauga un produs in cosul de cumparaturi
 void adaugareProdusInCos(const string &cod_de_bare, int cantitate) {
   vector<Produs> stoc = citireStoc("shared/files/stoc.txt");
 
@@ -177,6 +186,7 @@ void adaugareProdusInCos(const string &cod_de_bare, int cantitate) {
        << " a fost adaugat in cos cu cantitatea " << cantitate << "." << endl;
 }
 
+// Functie care modifica cantitatea unui produs din cos
 void modificareProdusInCos(const string &cod_de_bare, int cantitateNoua) {
   vector<ProdusInCos> cos = citireCos("shared/files/cos_cumparaturi.txt");
   vector<Produs> stoc = citireStoc("shared/files/stoc.txt");
@@ -216,6 +226,7 @@ void modificareProdusInCos(const string &cod_de_bare, int cantitateNoua) {
        << " a fost modificata la " << cantitateNoua << "." << endl;
 }
 
+// Functie care sterge un produs din cosul de cumparaturi
 void stergereProdusInCos(const string &cod_de_bare) {
   vector<ProdusInCos> cos = citireCos("shared/files/cos_cumparaturi.txt");
   vector<Produs> stoc = citireStoc("shared/files/stoc.txt");
@@ -252,6 +263,7 @@ void stergereProdusInCos(const string &cod_de_bare) {
   }
 }
 
+// Functie care returneaza data curenta din sistem
 DataCalendaristica getDataCurenta() {
   time_t now = time(0);
   tm *ltm = localtime(&now);
@@ -263,6 +275,7 @@ DataCalendaristica getDataCurenta() {
   return DataCalendaristica(zi, luna, an);
 }
 
+// Functie care proceseaza cumpararea produselor din cos
 void cumparare() {
   vector<ProdusInCos> cos = citireCos("shared/files/cos_cumparaturi.txt");
 
@@ -344,6 +357,7 @@ void cumparare() {
   cout << "Stocul a fost actualizat si cosul a fost golit." << endl;
 }
 
+// Functia principala care gestioneaza comenzile pentru cosul de cumparaturi
 int main(int argc, char *argv[]) {
   if (argc < 2) {
     cout << "Nu s-a specificat nicio comanda." << endl;
